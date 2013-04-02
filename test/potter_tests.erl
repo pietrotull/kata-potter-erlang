@@ -1,7 +1,6 @@
 -module(potter_tests).
 -include_lib("eunit/include/eunit.hrl").
 
-
 no_discounts_test() ->
   ?assertEqual(0, potter:price([])),
   ?assertEqual(8, potter:price([1])),
@@ -21,3 +20,12 @@ several_discountsets_test() ->
   ?assertEqual(2 * (8 * 2 * 0.95), potter:price([0, 0, 1, 1])),
   ?assertEqual((8 * 4 * 0.8) + (8 * 2 * 0.95), potter:price([0, 0, 1, 2, 2, 3])),
   ?assertEqual(8 + (8 * 5 * 0.75), potter:price([0, 1, 1, 2, 3, 4])).
+
+edge_case_test() ->
+  ?assertEqual(2 * (8 * 4 * 0.8), potter:price([0, 0, 1, 1, 2, 2, 3, 4])),
+  ?assertEqual(3 * (8 * 5 * 0.75) + 2 * (8 * 4 * 0.8), 
+               potter:price([0, 0, 0, 0, 0, 
+                             1, 1, 1, 1, 1, 
+                             2, 2, 2, 2, 
+                             3, 3, 3, 3, 3, 
+                             4, 4, 4, 4])).
