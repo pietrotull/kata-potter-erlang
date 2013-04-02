@@ -6,13 +6,10 @@
 price([]) -> 0;
 price(X) ->
   UniqueSet = lists:usort(X),
-  calculateSetPrice(UniqueSet) + price(lists:subtract(X, UniqueSet)).
+  get_set_price(length(UniqueSet)) + price(lists:subtract(X, UniqueSet)).
 
-calculateSetPrice(X) ->
-  8 * calculatePrice(length(X)).
-
-calculatePrice(5) -> 5 * 0.75;
-calculatePrice(4) -> 4 * 0.8;
-calculatePrice(3) -> 3 * 0.9;
-calculatePrice(2) -> 2 * 0.95;
-calculatePrice(_) -> 1.
+get_set_price(5) -> 8 * 5 * 0.75;
+get_set_price(4) -> 8 * 4 * 0.8;
+get_set_price(3) -> 8 * 3 * 0.9;
+get_set_price(2) -> 8 * 2 * 0.95;
+get_set_price(_) -> 8 * 1.
